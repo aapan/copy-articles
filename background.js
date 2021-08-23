@@ -6,7 +6,9 @@ chrome.contextMenus.create({
   documentUrlPatterns: [
     "https://*.google.com/search*",
     "https://*.mobile01.com/googlesearch*",
-    "https://*.dcard.tw/f/*"
+    "https://*.dcard.tw/f/*",
+    "https://*.gamer.com.tw/*",
+    "https://*.ptt.cc/*"
   ]
 });
 

@@ -27,20 +27,34 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action == 'getText') {
     url = location.href
     if (url.includes("www.google.com/search")) {
-      text = find_articles("g-card div.dbsr a");
+      if (url.includes("&tbm=nws")) {
+        text = find_articles("g-card div.dbsr a");
+      } else {
+        text = find_articles("#search .g .yuRUbf > a");
+      }
     }
     else if (url.includes("mobile01.com/googlesearch")) {
       text = find_articles("div.gsc-result div.gsc-thumbnail-inside a.gs-title", (url) => {
-        url = url.split("&p=")[0]
+        url = url.split("&p=")[0];
         return url;
       });
     }
     else if (url.includes("www.dcard.tw/f")) {
       text = find_articles("article h2 a", (url) => {
-        url = "https://www.dcard.tw" + url
+        url = "https://www.dcard.tw" + url;
         return url;
       });
     }
+    else if (url.includes("forum.gamer.com.tw")) {
+      text = find_articles("div.gsc-result div.gsc-thumbnail-inside a.gs-title");
+    }
+    else if (url.includes("www.ptt.cc")) {
+      text = find_articles("div.r-ent div.title a", (url) => {
+        url = "https://www.ptt.cc/" + url;
+        return url;
+      });
+    }
+
     copyTextToClipboard(text);
   }
 });
